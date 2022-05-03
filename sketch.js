@@ -13,8 +13,13 @@ function setup() {
   createCanvas(800, 800);
   ellipseMode(RADIUS);
 
+  
+
   engine = Engine.create();
   world = engine.world;
+
+  Engine.run(engine);
+
 
   var wall_options = {
     isStatic: true,
@@ -30,16 +35,17 @@ function setup() {
   ball = Bodies.circle(160, 350, 20, ball_options);
   World.add(world, ball);
 
-  parede1 = Bodies.rectangle(350, 500, 20, 100, wall_options);
-  parede2 = Bodies.rectangle(700, 600, 20, 100, wall_options);
+  parede1 = Bodies.rectangle(450, 580, 20, 100, wall_options);
+  World.add(world,parede1);
+  parede2 = Bodies.rectangle(600, 580, 20, 100, wall_options);
+  World.add(world,parede2);
 
   ground = new Ground(800 / 2, 670, 800, 20);
 }
 
 function draw() {
   background(0);
-  Engine.run(engine);
-
+  
   ground.display();
   push();
   fill("yellow");
@@ -49,11 +55,11 @@ function draw() {
   pop();
 
   drawSprites();
-  colocarForca();
+
 }
-function colocarForca() {
+function keyPressed() {
   if (keyCode == UP_ARROW) {
     //não consegui aplicar a velocidade para cima
-    Matter.Body.applyForce(ball, { x: 0, y: 0 }, { x: 0.05, y: 0 });
+    Body.applyForce(ball, { x: 0, y: 0 }, { x: 45, y:-45 });
   }
 }
